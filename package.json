@@ -1,0 +1,19 @@
+{
+  "name": "alter-ego",
+  "description": "Simple program to generate new names for people in offical documents so they can be published and also decodes names back to original with proper key-file.",
+  "homepage": "http://elemmings.fi",
+  "version": "0.0.1",
+  "author": {
+    "name": "Heikki Kurhinen",
+    "url": "http://elemmings.fi"
+  },
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "dependencies": {
+    "haikunator": "*"
+  }
+}
