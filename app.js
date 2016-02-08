@@ -95,16 +95,16 @@ if(program.new) {
 }else if(program.decode){
     if(program.keyFile || config.key_file){
       var keyFile = program.keyFile ? program.keyFile : config.key_file;
-      if(program.InputFile){
-        decodeFile(keyFile, program.InputFile);
+      if(program.inputFile){
+        decodeFile(keyFile, program.inputFile);
       }else{
         askInputFile(keyFile);
       }
     }else{
       promptly.prompt('Key file that will be used to decode document:', function(fileErr, file){
         if(fileErr) throw fileErr;
-        if(program.InputFile){
-          decodeFile(file, program.InputFile);
+        if(program.inputFile){
+          decodeFile(file, program.inputFile);
         }else{
           askInputFile(file);
         }
