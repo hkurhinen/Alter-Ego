@@ -97,14 +97,12 @@ fs.readFile('./config.json', 'utf8', function (readErr, data) {
   } catch (error) {
     console.log('Failed to parse config file.');
   }
-});
-
-if(program.new) {
-  promptly.prompt('Name of the new key file:', function(fileErr, file){
-    if(fileErr) throw fileErr;
-    initializeKeyFile(file);
-  });
-}else if(program.decode){
+  if(program.new) {
+    promptly.prompt('Name of the new key file:', function(fileErr, file){
+      if(fileErr) throw fileErr;
+      initializeKeyFile(file);
+    });
+  }else if(program.decode){
     if(program.keyFile || config.key_file){
       var keyFile = program.keyFile ? program.keyFile : config.key_file;
       if(program.inputFile){
@@ -122,17 +120,18 @@ if(program.new) {
         }
       });
     }
-}else{
-  promptly.prompt('Name of the person that alter ego will be generated:', function(nameErr, name){
-    if(nameErr) throw nameErr;
-    if(program.keyFile || config.key_file){
-      var keyFile = program.keyFile ? program.keyFile : config.key_file;
-      generateAlterEgo(name, keyFile);
-    }else{
-      promptly.prompt('Key file that alter ego will be added to:', function(fileErr, file){
-        if(fileErr) throw fileErr;
-        generateAlterEgo(name, file);
-      });
-    }  
-  });
-}
+  }else{
+    promptly.prompt('Name of the person that alter ego will be generated:', function(nameErr, name){
+      if(nameErr) throw nameErr;
+      if(program.keyFile || config.key_file){
+        var keyFile = program.keyFile ? program.keyFile : config.key_file;
+        generateAlterEgo(name, keyFile);
+      }else{
+        promptly.prompt('Key file that alter ego will be added to:', function(fileErr, file){
+          if(fileErr) throw fileErr;
+          generateAlterEgo(name, file);
+        });
+      }  
+    });
+  }
+});
