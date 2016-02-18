@@ -2,9 +2,10 @@ var program = require('commander');
 var promptly = require('promptly');
 var crypto = require('crypto');
 var algorithm = 'aes-256-ctr';
-var config = require('./config');
 var haikunate = require('haikunator');
 var fs = require('fs');
+
+var config;
 
 function encrypt(text, password){
   var cipher = crypto.createCipher(algorithm, password)
@@ -86,6 +87,17 @@ program
   .option('-i, --input-file [file]', 'File that will be decoded when in decode mode', '')
   .option('-k, --key-file [file]', 'Key file that will be used for decoding or to which new alter ego will be added', '')
   .parse(process.argv);
+
+fs.readFile('./config.json', 'utf8', function (readErr, data) {
+  if (readErr) {
+    console.log('Failed to read config file.')
+  };
+  try {
+    config = JSON.parse(data);
+  } catch (error) {
+    console.log('Failed to parse config file.');
+  }
+});
 
 if(program.new) {
   promptly.prompt('Name of the new key file:', function(fileErr, file){
